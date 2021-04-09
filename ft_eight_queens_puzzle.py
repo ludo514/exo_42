@@ -1,11 +1,14 @@
 import numpy as np
 
-
-def verif_queen(position_ligne, position_colonne, array):
-    if array[position_ligne + 1,  position_colonne + 1] != 1 and array[position_ligne + 1, position_colonne] != 1 and array[position_ligne - 1, position_colonne] != 1 and array[position_ligne,  position_colonne - 1] != 1 and array[position_ligne,  position_colonne + 1] != 1 and array[position_ligne - 1,  position_colonne - 1] != 1:
-        return 1
-    else:
-        return 0
+def verif(position_ligne, position_colonne, array):
+    compte_colonne = 7 - position_colonne
+    compte_ligne = 7 - position_ligne
+    for i in range(compte_ligne):
+        for j in range(compte_colonne):
+            if array[position_ligne, position_colonne - j] != 1 and array[position_ligne + i, position_colonne + j] != 1:
+                array[position_ligne, position_colonne] = 1
+            else:
+                array[position_ligne, position_colonne] = 0
 
 def ft_eight_queens_puzzle():
     ligne = 8
@@ -13,8 +16,7 @@ def ft_eight_queens_puzzle():
     a = np.zeros((ligne,colonne))
     for i in range(ligne - 1):
         for j in range(colonne - 1):
-            if a[i,j] == 0:
-                a[i,j] = verif_queen(i, j, a)
+            verif(i, j, a)
 
     print(a)
 ft_eight_queens_puzzle()
